@@ -61,6 +61,6 @@ public class AddressService {
         if (addressRepository.findAddressById(addressId) !=null){
             throw new ApiException("Address not deleted");
         }
-        
+
     }
 }

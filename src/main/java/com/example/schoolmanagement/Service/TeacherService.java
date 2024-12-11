@@ -48,12 +48,14 @@ public class TeacherService {
         if(teacher == null){
             throw new ApiException("Teacher not found");
         }
+        Address address = addressRepository.findAddressById(id);
+        if(address != null){
+            address.setId(null);
+            addressRepository.delete(address);
+            
+        }
         teacherRepository.deleteTeacherById(id);
 
-        Address address = addressRepository.findAddressById(id);
-        if ( address != null){
-            addressRepository.deleteAddressById(id);
-        }
     }
 
     public TeacherInfoDTO getTeacherById(Integer id){
