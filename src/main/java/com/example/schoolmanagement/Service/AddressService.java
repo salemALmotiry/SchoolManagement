@@ -54,9 +54,13 @@ public class AddressService {
     public void deleteAddress(Integer addressId) {
         Address address = addressRepository.findAddressById(addressId);
         if (address == null) {
-            throw new RuntimeException("Address not found");
+            throw new ApiException("Address not found");
         }
+        addressRepository.deleteAddressById(address.getId());
 
-        addressRepository.delete(address);
+        if (addressRepository.findAddressById(addressId) !=null){
+            throw new ApiException("Address not deleted");
+        }
+        
     }
 }
