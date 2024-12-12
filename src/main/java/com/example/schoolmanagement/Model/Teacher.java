@@ -12,6 +12,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Data
 @Entity
 @AllArgsConstructor
@@ -45,4 +47,7 @@ public class Teacher {
     @OneToOne(cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     Address address;
+
+    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
+    private Set<Course> courses;
 }

@@ -72,10 +72,10 @@ public class TeacherService {
         teacherInfoDTO.setId(teacher.getId());
         teacherInfoDTO.setName(teacher.getName());
         teacherInfoDTO.setEmail(teacher.getEmail());
-
         teacherInfoDTO.setStreet(address.getStreet());
         teacherInfoDTO.setArea( address.getArea());
         teacherInfoDTO.setBuildingNumber(address.getBuildingNumber());
+        teacherInfoDTO.setCourses(teacher.getCourses());
 
         return teacherInfoDTO;
     }

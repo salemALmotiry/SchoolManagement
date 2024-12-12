@@ -1,8 +1,11 @@
 package com.example.schoolmanagement.DTO;
 
+import com.example.schoolmanagement.Model.Course;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -17,4 +20,6 @@ public class TeacherInfoDTO {
     private String area;
     private String street;
     private Integer buildingNumber;
+
+    private Set<Course> courses;
 }
