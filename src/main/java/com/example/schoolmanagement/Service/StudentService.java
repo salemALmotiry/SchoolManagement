@@ -2,7 +2,9 @@ package com.example.schoolmanagement.Service;
 
 
 import com.example.schoolmanagement.ApiResponse.ApiException;
+import com.example.schoolmanagement.DTO.CourseDTO;
 import com.example.schoolmanagement.DTO.StudentDTO;
+import com.example.schoolmanagement.Model.Course;
 import com.example.schoolmanagement.Model.Student;
 import com.example.schoolmanagement.Model.Teacher;
 import com.example.schoolmanagement.Repository.StudentRepository;
@@ -23,11 +25,20 @@ public class StudentService {
     public List<StudentDTO> getAll() {
         List<Student> students = studentRepository.findAll();
         List<StudentDTO> studentDTOS = new ArrayList<>();
+        List<CourseDTO> courseDTOS = new ArrayList<>();
         for (Student student : students) {
             StudentDTO studentDTO = new StudentDTO();
             studentDTO.setName(student.getName());
             studentDTO.setAge(student.getAge());
             studentDTO.setAge(student.getAge());
+
+            for (Course course : student.getCourses()) {
+                CourseDTO courseDTO = new CourseDTO();
+                courseDTO.setName(course.getName());
+                courseDTOS.add(courseDTO);
+            }
+
+            studentDTO.setCourses(courseDTOS);
             studentDTOS.add(studentDTO);
         }
 

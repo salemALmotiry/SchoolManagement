@@ -1,7 +1,9 @@
 package com.example.schoolmanagement.Service;
 
 import com.example.schoolmanagement.ApiResponse.ApiException;
+import com.example.schoolmanagement.DTO.CourseDTO;
 import com.example.schoolmanagement.DTO.StudentDTO;
+import com.example.schoolmanagement.DTO.TeacherNameDTO;
 import com.example.schoolmanagement.Model.Course;
 import com.example.schoolmanagement.Model.Student;
 import com.example.schoolmanagement.Model.Teacher;
@@ -24,8 +26,15 @@ public class CourseService {
     private final CourseRepository courseRepository;
 
 
-    public List<Course> getAllCourses(){
-        return courseRepository.findAll();
+    public List<CourseDTO> getAllCourses(){
+        List<Course> courses = courseRepository.findAll();
+        List<CourseDTO> courseDTOList = new ArrayList<>();
+        for (Course course : courses) {
+            CourseDTO courseDTO = new CourseDTO();
+            courseDTO.setName(course.getName());
+            courseDTOList.add(courseDTO);
+        }
+        return courseDTOList;
     }
 
     public void addCourse(Integer teacherId, Course course) {
@@ -81,7 +90,7 @@ public class CourseService {
 
     }
 
-    public String getTeacherNameForCourse(Integer courseId) {
+    public TeacherNameDTO getTeacherNameForCourse(Integer courseId) {
         Course course = courseRepository.findCourseById(courseId);
         if (course == null) {
             throw new ApiException("Course not found");
@@ -90,7 +99,7 @@ public class CourseService {
         if (teacher == null) {
             throw new ApiException("No teacher assigned to this course");
         }
-        return teacher.getName();
+        return new TeacherNameDTO(course.getTeacher().getName());
     }
 
     public List<StudentDTO> getAllStudents(Integer courseId) {

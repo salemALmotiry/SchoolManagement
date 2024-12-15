@@ -1,7 +1,9 @@
 package com.example.schoolmanagement.Controller;
 
 import com.example.schoolmanagement.ApiResponse.ApiResponse;
+import com.example.schoolmanagement.DTO.CourseDTO;
 import com.example.schoolmanagement.DTO.StudentDTO;
+import com.example.schoolmanagement.DTO.TeacherNameDTO;
 import com.example.schoolmanagement.Service.CourseService;
 import com.example.schoolmanagement.Model.Course;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +21,8 @@ public class CourseController {
     private final CourseService courseService;
 
     @GetMapping("/get")
-    public ResponseEntity<List<Course>> getAllCourses() {
-        List<Course> courses = courseService.getAllCourses();
+    public ResponseEntity getAllCourses() {
+        List<CourseDTO> courses = courseService.getAllCourses();
         return ResponseEntity.status(200).body(courses);
     }
 
@@ -43,14 +45,14 @@ public class CourseController {
     }
 
     @GetMapping("/get-teacher-name/{courseId}")
-    public ResponseEntity<String> getTeacherNameForCourse(@PathVariable Integer courseId) {
-        String teacherName = courseService.getTeacherNameForCourse(courseId);
+    public ResponseEntity getTeacherNameForCourse(@PathVariable Integer courseId) {
+        TeacherNameDTO teacherName = courseService.getTeacherNameForCourse(courseId);
         return ResponseEntity.status(200).body(teacherName);
     }
 
     @GetMapping("/{courseId}/students")
     public ResponseEntity getAllStudentsForCourse(@PathVariable Integer courseId) {
         List<StudentDTO> students = courseService.getAllStudents(courseId);
-        return ResponseEntity.ok(students);
+        return ResponseEntity.status(200).body(students);
     }
 }

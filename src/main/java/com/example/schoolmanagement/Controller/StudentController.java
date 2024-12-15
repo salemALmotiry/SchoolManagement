@@ -21,30 +21,30 @@ public class StudentController {
     @GetMapping("/get")
     public ResponseEntity getAllStudents() {
         List<StudentDTO> studentDTOList = studentService.getAll();
-        return ResponseEntity.ok(studentDTOList);
+        return ResponseEntity .status(200).body(studentDTOList);
     }
 
     @PostMapping("/add")
     public ResponseEntity addStudent(@RequestBody @Valid Student student) {
         studentService.add(student);
-        return ResponseEntity.ok(new ApiResponse("Student added successfully"));
+        return ResponseEntity .status(200).body(new ApiResponse("Student added successfully"));
     }
 
     @PutMapping("/update")
     public ResponseEntity updateStudent(@RequestBody @Valid Student student) {
         studentService.updateStudent(student);
-        return ResponseEntity.ok(new ApiResponse("Student updated successfully"));
+        return ResponseEntity .status(200).body(new ApiResponse("Student updated successfully"));
     }
 
     @DeleteMapping("/delete/{studentId}")
     public ResponseEntity deleteStudent(@PathVariable Integer studentId) {
         studentService.deleteStudent(studentId);
-        return ResponseEntity.ok(new ApiResponse("Student deleted successfully"));
+        return ResponseEntity .status(200).body(new ApiResponse("Student deleted successfully"));
     }
 
     @PutMapping("/change-major/{studentId}/{major}")
     public ResponseEntity changeMajor(@PathVariable Integer studentId, @PathVariable String major) {
         studentService.changeMajor(studentId, major);
-        return ResponseEntity.ok(new ApiResponse("Student major changed successfully"));
+        return ResponseEntity .status(200).body(new ApiResponse("Student major changed successfully"));
     }
 }

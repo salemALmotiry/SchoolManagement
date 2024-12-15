@@ -21,8 +21,37 @@ public class TeacherService {
     private final TeacherRepository teacherRepository;
     private final AddressRepository addressRepository;
 
-    public List<Teacher> getAllTeachers(){
-        return teacherRepository.findAll();
+    public List<TeacherInfoDTO> getAllTeachers(){
+        List<Teacher> teachers = teacherRepository.findAll();
+        List<TeacherInfoDTO> teacherInfoDTOs = new ArrayList<>();
+
+
+        for (Teacher teacher : teachers) {
+            Address address = addressRepository.findAddressById(teacher.getId());
+
+            TeacherInfoDTO teacherInfoDTO = new TeacherInfoDTO();
+            teacherInfoDTO.setName(teacher.getName());
+            teacherInfoDTO.setAge(teacher.getAge());
+            teacherInfoDTO.setEmail(teacher.getEmail());
+            teacherInfoDTO.setSalary(teacher.getSalary());
+            teacherInfoDTO.setArea( address.getArea());
+
+            teacherInfoDTO.setStreet(address.getStreet());
+            teacherInfoDTO.setBuildingNumber(address.getBuildingNumber());
+
+            List<CourseDTO> courseDTOS = new ArrayList<>();
+            for (Course course : teacher.getCourses())
+            {
+                CourseDTO courseDTO = new CourseDTO();
+                courseDTO.setName(course.getName());
+                courseDTOS.add(courseDTO);
+            }
+            teacherInfoDTO.setCourses(courseDTOS);
+
+            teacherInfoDTOs.add(teacherInfoDTO);
+
+        }
+        return teacherInfoDTOs;
     }
 
     public void addTeacher(Teacher teacher){
@@ -72,9 +101,11 @@ public class TeacherService {
         }
 
         TeacherInfoDTO teacherInfoDTO = new TeacherInfoDTO();
-        teacherInfoDTO.setId(teacher.getId());
+
         teacherInfoDTO.setName(teacher.getName());
         teacherInfoDTO.setEmail(teacher.getEmail());
+        teacherInfoDTO.setSalary(teacher.getSalary());
+        teacherInfoDTO.setAge(teacher.getAge());
         teacherInfoDTO.setStreet(address.getStreet());
         teacherInfoDTO.setArea( address.getArea());
         teacherInfoDTO.setBuildingNumber(address.getBuildingNumber());

@@ -31,7 +31,7 @@ public class Course {
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
-    @ManyToMany(mappedBy = "student")
+    @ManyToMany(mappedBy = "courses")
     @JsonIgnore
     private Set<Student> students;
 

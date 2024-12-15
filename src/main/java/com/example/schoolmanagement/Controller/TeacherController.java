@@ -21,8 +21,8 @@ public class TeacherController {
 
 
     @GetMapping("/get")
-    public ResponseEntity<List<Teacher>> getAllTeachers() {
-        List<Teacher> teachers = teacherService.getAllTeachers();
+    public ResponseEntity getAllTeachers() {
+        List<TeacherInfoDTO> teachers = teacherService.getAllTeachers();
         return ResponseEntity.status(200).body(teachers);
     }
 
