@@ -7,6 +7,7 @@ import com.example.schoolmanagement.DTO.StudentDTO;
 import com.example.schoolmanagement.Model.Course;
 import com.example.schoolmanagement.Model.Student;
 import com.example.schoolmanagement.Model.Teacher;
+import com.example.schoolmanagement.Repository.CourseRepository;
 import com.example.schoolmanagement.Repository.StudentRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ public class StudentService {
 
 
     private final StudentRepository studentRepository;
+    private final CourseRepository courseRepository;
 
 
     public List<StudentDTO> getAll() {
@@ -87,4 +89,20 @@ public class StudentService {
         student.setCourses(null);
         studentRepository.save(student);
     }
+
+    public void assignCourse(Integer courseId,Integer studentId){
+        Student student = studentRepository.findStudentById(studentId);
+        Course course = courseRepository.findCourseById(courseId);
+        if (student == null){
+            throw new RuntimeException("student not found");
+        }
+        if (course == null){
+            throw new RuntimeException("course not found");
+        }
+        student.getCourses().add(course);
+        course.getStudents().add(student);
+        studentRepository.save(student);
+        courseRepository.save(course);
+    }
+
 }

@@ -47,4 +47,11 @@ public class StudentController {
         studentService.changeMajor(studentId, major);
         return ResponseEntity .status(200).body(new ApiResponse("Student major changed successfully"));
     }
+
+    @PutMapping("/assign/{studentId}/{courseId}")
+    public ResponseEntity assignCourseToStudent(@PathVariable Integer studentId, @PathVariable Integer courseId) {
+        studentService.assignCourse(studentId,courseId);
+        return ResponseEntity.status(200).body(new ApiResponse("Course assigned successfully!"));
+
+    }
 }
