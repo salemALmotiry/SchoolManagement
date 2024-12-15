@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -21,5 +22,6 @@ public class TeacherInfoDTO {
     private String street;
     private Integer buildingNumber;
 
-    private Set<Course> courses;
+    private List<CourseDTO> courses;
+
 }

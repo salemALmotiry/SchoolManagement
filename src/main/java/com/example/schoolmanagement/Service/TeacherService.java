@@ -1,14 +1,17 @@
 package com.example.schoolmanagement.Service;
 
 import com.example.schoolmanagement.ApiResponse.ApiException;
+import com.example.schoolmanagement.DTO.CourseDTO;
 import com.example.schoolmanagement.DTO.TeacherInfoDTO;
 import com.example.schoolmanagement.Model.Address;
+import com.example.schoolmanagement.Model.Course;
 import com.example.schoolmanagement.Model.Teacher;
 import com.example.schoolmanagement.Repository.AddressRepository;
 import com.example.schoolmanagement.Repository.TeacherRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -75,7 +78,15 @@ public class TeacherService {
         teacherInfoDTO.setStreet(address.getStreet());
         teacherInfoDTO.setArea( address.getArea());
         teacherInfoDTO.setBuildingNumber(address.getBuildingNumber());
-        teacherInfoDTO.setCourses(teacher.getCourses());
+
+        List<CourseDTO> courseDTOS = new ArrayList<>();
+        for (Course course : teacher.getCourses())
+        {
+            CourseDTO courseDTO = new CourseDTO();
+            courseDTO.setName(course.getName());
+            courseDTOS.add(courseDTO);
+        }
+        teacherInfoDTO.setCourses(courseDTOS);
 
         return teacherInfoDTO;
     }

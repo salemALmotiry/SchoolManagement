@@ -30,9 +30,9 @@ public class Course {
     @ManyToOne
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
-//
-//    @ManyToMany(mappedBy = "student")
-//    @JsonIgnore
-//    private Set<Student> students;
+
+    @ManyToMany(mappedBy = "student")
+    @JsonIgnore
+    private Set<Student> students;
 
 }

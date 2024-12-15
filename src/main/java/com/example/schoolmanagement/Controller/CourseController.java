@@ -1,6 +1,7 @@
 package com.example.schoolmanagement.Controller;
 
 import com.example.schoolmanagement.ApiResponse.ApiResponse;
+import com.example.schoolmanagement.DTO.StudentDTO;
 import com.example.schoolmanagement.Service.CourseService;
 import com.example.schoolmanagement.Model.Course;
 import lombok.RequiredArgsConstructor;
@@ -45,5 +46,11 @@ public class CourseController {
     public ResponseEntity<String> getTeacherNameForCourse(@PathVariable Integer courseId) {
         String teacherName = courseService.getTeacherNameForCourse(courseId);
         return ResponseEntity.status(200).body(teacherName);
+    }
+
+    @GetMapping("/{courseId}/students")
+    public ResponseEntity getAllStudentsForCourse(@PathVariable Integer courseId) {
+        List<StudentDTO> students = courseService.getAllStudents(courseId);
+        return ResponseEntity.ok(students);
     }
 }

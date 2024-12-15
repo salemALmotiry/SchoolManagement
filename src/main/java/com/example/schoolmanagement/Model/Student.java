@@ -35,7 +35,7 @@ public class Student {
     private String major;
 
 
+    @ManyToMany
+    private Set<Course> courses;
 
-//    @ManyToMany
-//    private Set<Course> courses;
 }
